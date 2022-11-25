@@ -17,11 +17,17 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 async function run() {
     try {
       const categoryCollection = client.db("resale").collection("category");
+      const microbusCollection = client.db("resale").collection("microbus");
       
       app.get('/category', async(req, res)=>{
            const query = {};
            const categories = await categoryCollection.find(query).toArray();
            res.send(categories);
+      })
+      app.get('/microbus', async(req, res)=>{
+           const query = {};
+           const microbus = await microbusCollection.find(query).toArray();
+           res.send(microbus);
       })
     
     }
