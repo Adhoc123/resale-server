@@ -18,6 +18,8 @@ async function run() {
     try {
       const categoryCollection = client.db("resale").collection("category");
       const microbusCollection = client.db("resale").collection("microbus");
+      const luxurycarCollection = client.db("resale").collection("luxurycar");
+      const electriccarCollection = client.db("resale").collection("electriccar");
       
       app.get('/category', async(req, res)=>{
            const query = {};
@@ -28,6 +30,16 @@ async function run() {
            const query = {};
            const microbus = await microbusCollection.find(query).toArray();
            res.send(microbus);
+      })
+      app.get('/luxurycar', async(req, res)=>{
+           const query = {};
+           const luxurycar = await luxurycarCollection.find(query).toArray();
+           res.send(luxurycar);
+      })
+      app.get('/electriccar', async(req, res)=>{
+           const query = {};
+           const electriccar = await electriccarCollection.find(query).toArray();
+           res.send(electriccar);
       })
     
     }
