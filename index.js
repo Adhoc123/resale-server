@@ -41,6 +41,11 @@ async function run() {
            const electriccar = await electriccarCollection.find(query).toArray();
            res.send(electriccar);
       })
+      app.post('/bookings', async(req, res)=>{
+          const booking = req.body;
+          const result = await bookingsCollection.insertOne(booking);
+          res.send(result);
+      })
     
     }
     finally {
