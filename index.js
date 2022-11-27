@@ -20,7 +20,7 @@ async function run() {
       const microbusCollection = client.db("resale").collection("microbus");
       const luxurycarCollection = client.db("resale").collection("luxurycar");
       const electriccarCollection = client.db("resale").collection("electriccar");
-      
+      const bookingsCollection = client.db("resale").collection("booking");
       app.get('/category', async(req, res)=>{
            const query = {};
            const categories = await categoryCollection.find(query).toArray();
