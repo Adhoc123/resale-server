@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const { MongoClient, ServerApiVersion } = require('mongodb');
+const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 const port = process.env.PORT || 5000;
@@ -43,13 +44,7 @@ async function run() {
            const electriccar = await electriccarCollection.find(query).toArray();
            res.send(electriccar);
       })
-      app.get('/bookings', async(req, res)=>{
-          const email = req.body.email;
-          console.log(email)
-          const query = {email : email};
-          const bookings = await bookingsCollection.find(query).toArray();
-          res.send(bookings);
-      })
+      
       app.post('/bookings', async(req, res)=>{
           const booking = req.body;
           const result = await bookingsCollection.insertOne(booking);
@@ -59,6 +54,13 @@ async function run() {
           const user = req.body;
           const result = await usersCollection.insertOne(user);
           res.send(result);
+      })
+      app.get('/bookings', async(req, res)=>{
+          const email = req.body.email;
+          console.log(email)
+          const query = {email : email};
+          const bookings = await bookingsCollection.find(query).toArray();
+          res.send(bookings);
       })
     
     }
