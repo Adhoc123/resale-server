@@ -55,11 +55,17 @@ async function run() {
           const result = await usersCollection.insertOne(user);
           res.send(result);
       })
+      app.get('/users', async(req, res)=>{
+          const query = {};
+          const users = await usersCollection.find(query).toArray();
+          res.send(users);
+      })
       app.get('/bookings', async(req, res)=>{
           const email = req.body.email;
           console.log(email)
           const query = {email : email};
           const bookings = await bookingsCollection.find(query).toArray();
+          console.log(bookings)
           res.send(bookings);
       })
     
