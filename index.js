@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
@@ -67,6 +67,18 @@ async function run() {
           const bookings = await bookingsCollection.find(query).toArray();
           console.log(bookings)
           res.send(bookings);
+      })
+      app.put('/users/admin/:id', async(req, res)=>{
+          const id = req.params.id;
+          const filter = { _id: ObjectId(id) };
+          const options = {upsert: true};
+          const updatedDoc = {
+            $set:{
+                role: 'admin'
+            }
+          }
+          const result = await usersCollection.updateOne(filter, updatedDoc, options);
+          res.send(result);
       })
     
     }
